@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition>
+		<h:form>
+			<p:wizard flowListener = "#{anularDocBean.onFlowProcess2}" id = "a_form">
+			<p:tab id = "tab1" >
+				<p:panel header = "Documento">
+				<h:panelGrid columns = "3">
+					<h:outputLabel value="SERIE: *" />
+					<p:inputText id = "selec" value = "#{anularDocBean.doc.serieelec}" required = "true"/>
+					<p:message for = "selec" />
+					<h:outputLabel value="NUMERO: *" />
+					<p:inputText id = "nelec" value = "#{anularDocBean.doc.numeroelec}" required = "true"/>
+					<p:message for = "nelec"/>
+					<h:outputLabel value="Fecha Emision" />
+					<p:calendar id = "fec" value = "#{anularDocBean.fecha_emision}" required = "true"/>
+					<p:message for = "fec"/>
+					<h:outputLabel value="Tipo: "/>
+					<p:selectOneMenu value = "#{anularDocBean.doc.tipodocumento}">
+						<f:selectItem itemLabel = "FACTURA" itemValue = "01"/>
+						<f:selectItem itemLabel = "BOLETA" itemValue = "03"/>
+					</p:selectOneMenu>
+					
+				</h:panelGrid>
+				</p:panel>
+			</p:tab>
+			<p:tab id = "tab2">
+				<p:panel header = "Resultados">
+				<h:panelGrid columns = "2">	
+					<h:outputLabel value="Ticket SUNAT: " />
+					<h:outputLabel value="#{anularDocBean.ticket}" />
+					<h:outputLabel value="Archivo Generado: " />
+					<p:commandButton value = "#{anularDocBean.file.name}" ajax = "false">
+						<p:fileDownload value="#{anularDocBean.file}" ></p:fileDownload>
+					</p:commandButton>
+					<h:outputLabel value="Respuesta Sunat: " />
+					<p:commandButton value = "#{anularDocBean.respuesta.name}" ajax = "false">
+						<p:fileDownload value="#{anularDocBean.respuesta}" ></p:fileDownload>
+					</p:commandButton>
+				</h:panelGrid>
+				</p:panel>
+			</p:tab>
+			</p:wizard>
+		</h:form>
+	</ui:composition>
+</html>

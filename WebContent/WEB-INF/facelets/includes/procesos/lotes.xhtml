@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition >
+		
+		<h:form>
+		<!-- 
+		Aqui va la navegacion de la izquierda
+		 -->
+		 	<p:layout style = "position:absolute;width:100%;height:100%;left:0px;">
+		 		<p:layoutUnit position="west" style = "position:absolute;width:10%">
+		 			<p:panelGrid columns = "1"   layout = "grid" >
+		 		
+						<p:panelGrid columns = "1"   layout = "grid" style = "text-align:center;top:0;">
+							<p:outputLabel for = "fecha" value = "Fecha" />
+							<p:calendar id = "fecha" value = "#{lotesBean.fecha}" showOn = "button" 
+								 size = "8" />
+						</p:panelGrid>
+					 		
+						<p:separator/>
+					 		
+						<p:panelGrid columns = "2" cellpading = "2"  layout = "grid" style = "text-align:left;">
+						
+							<p:outputLabel value = "Factura" for = "factura" style = "text-align:left;"/>
+							<p:selectBooleanCheckbox id = "factura" label  ="Factura" value = "#{lotesBean.facturas}"/>
+							<p:outputLabel value = "Boleta" for = "boleta"/>
+							<p:selectBooleanCheckbox id = "boleta" value = "#{lotesBean.boletas}"/>
+							<p:outputLabel value = "Notas de Credito" for = "ncredito"/>
+							<p:selectBooleanCheckbox id = "ncredito" value = "#{lotesBean.ncredito}"/>
+							<p:outputLabel value = "Notas de Debitos" for = "ndebito"/>
+							<p:selectBooleanCheckbox id = "ndebito" value = "#{lotesBean.ndebito}"/>
+							<p:outputLabel value = "Contingencia" for = "contingencia"/>
+							<p:selectBooleanCheckbox id = "contingencia" value = "#{lotesBean.contingencia}"/>
+							<p:outputLabel value = "Corregido" for = "corregido"/>
+							<p:selectBooleanCheckbox id = "corregido" value = "#{lotesBean.corregido}"/>
+								
+						</p:panelGrid>
+					 		
+						<p:panelGrid columns = "2"  cellpadding = "2"   layout = "grid" style = "text-align:center;left:0;right:0;">
+							<p:commandButton value = "Generar"  update = "tabla" actionListener = "#{lotesBean.lotesGenerar}"/>
+							<p:commandButton value = "Migrar"  update = "tabla" actionListener = "#{lotesBean.lotesMigrar}"/>
+						</p:panelGrid>
+					 		
+						</p:panelGrid>
+						
+		 		</p:layoutUnit>
+		 	
+		
+	 	
+	 	<!-- En este lugar va el panel de salida del centro-->
+			<p:layoutUnit position="center" >
+				<h3 style = "text-align:center">Resultados</h3>
+				
+				
+				<p:dataTable id = "tabla" var = "item" value = "#{lotesBean.list}" style = "font-size:small;text-align:center;"
+					 resizableMode = "expand">
+					<p:column headerText = "Serie-Numero" width = "12%">
+						<h:outputText value="#{item.numeracion}" />
+					</p:column>
+					<p:column headerText = "Serie-Numero Electronico" width = "12%">
+						<h:outputText value="#{item.numeracion_nueva}" />
+					</p:column>
+					<p:column headerText = "Documento" width = "10%">
+						<h:outputText value = "#{item.tipo_doc}"></h:outputText>
+					</p:column>
+					
+					<p:column headerText = "Cliente" width = "25%" >
+						<h:outputText value = "#{item.cliente}" style = "text-align:left;"></h:outputText>
+					</p:column>
+					<p:column headerText = "Total" width = "8%">
+						<h:outputText value="#{item.total}" />
+					</p:column>
+					<p:column headerText = "Estado" width = "8%">
+						<h:outputText value="#{item.homologado}" />
+					</p:column>
+					<p:column headerText = "Archivo" width = "7%">
+						<p:commandButton value = "file " ajax = "false">
+							<p:fileDownload value="#{item.file}" ></p:fileDownload>
+						</p:commandButton>
+					</p:column>
+					<p:column headerText = "Sunat" width = "8%">
+						<p:commandButton value = "sunat " ajax = "false">
+							<p:fileDownload value="#{item.sunat}" ></p:fileDownload>
+						</p:commandButton>
+					</p:column>	
+				</p:dataTable>
+				
+				
+			</p:layoutUnit>
+		 </p:layout>
+	 </h:form>
+		
+	</ui:composition>
+</html>

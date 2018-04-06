@@ -1,0 +1,38 @@
+body{
+	background-color: #ffffff ;
+}
+#header{
+  position: fixed;
+  top:5px;
+  left:5px;
+  right:5px;
+  height:50px;
+  background-color:#333;
+  color:#ea4c03;
+  border-radius:2px;
+}
+
+#menu{
+	position:fixed;
+	float:left;
+	top:60px;
+	left:5px;
+	z-index:1000;
+}
+#content{
+	position:fixed;
+	float:left;
+	top:60px;
+	left:120px;
+	right:5px;
+	bottom:15px;
+}
+#footer{
+	position:fixed;
+	left:0px;
+	bottom:0px;
+	width:100%;
+	height:10px;
+	font-size:small;
+    color:#ea4c03;
+}

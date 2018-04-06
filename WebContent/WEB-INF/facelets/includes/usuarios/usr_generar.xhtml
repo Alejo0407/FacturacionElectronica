@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+	<ui:composition>
+		<h:form>
+			<p:wizard flowListener = "#{gusrBean.onFlowProcessGenerar}" id = "flow">
+				<p:tab id = "identificador" title = "Identificador">
+					<p:panel header = "Id y Contraseña">
+					<p:messages globalOnly = "true"/>
+					<h:panelGrid columns="3" columnClasses="label, value">
+						<h:outputText value = "ID: *"/>
+						<p:inputText id = "id" value = "#{gusrBean.ident}" required = "true"/>
+						<p:message id = "mid" for = "id"/>
+						
+						<h:outputText value="Contraseña: *" />
+						<p:password id = "pass" value = "#{gusrBean.pass}" required = "true"/>
+						<p:message id = "mpass" for = "pass"/>
+						
+						<h:outputText value="Confirmar contraseña: *" />
+						<p:password id = "rpass" value = "#{gusrBean.confirmpass}" required = "true"/>
+						<p:message id = "mrpass" for = "rpass"/>
+						
+						<h:outputText value="Rango: *" />
+						<p:selectOneMenu value = "#{gusrBean.rango}" required = "true" id = "rrango">
+							<f:selectItem itemLabel = "Medio (Acceso al generador y el form para anular)" 
+							itemValue = "1"/>
+							<f:selectItem itemLabel = "Bajo (solo monitoreo y reportes)" 
+							itemValue = "2"/>
+						</p:selectOneMenu>
+						<p:message id = "mrango" for = "rrango"/>
+						
+						<h:outputText value="Saltar al final:" />
+						<h:selectBooleanCheckbox value="#{gusrBean.skip}" />
+					</h:panelGrid>
+					
+					</p:panel>
+				</p:tab>
+				
+				<p:tab id = "personales" title = "Datos Personales">
+					<p:panel header = "Datos de la persona asociada al identificador">
+					<p:messages globalOnly = "true"/>
+					<h:panelGrid columns="3" columnClasses="label, value">
+						<h:outputText value = "DNI:"/>
+						<p:inputText id = "dni" value = "#{gusrBean.dni}"/>
+						<p:message for = "dni"/>
+						
+						<h:outputText value = "Nombres: "/>
+						<p:inputText id = "nombres" value = "#{gusrBean.nombres}"/>
+						<p:message for = "nombres"/>
+						
+						<h:outputText value = "Apellidos:"/>
+						<p:inputText id = "apellidos" value = "#{gusrBean.apellidos}"/>
+						<p:message for = "apellidos"/>
+						
+						<h:outputText value = "Correo: "/>
+						<p:inputText id = "correo" value = "#{gusrBean.correo}"/>
+						<p:message for = "correo"/>
+					</h:panelGrid>
+					</p:panel>
+				</p:tab>
+			
+				<p:tab id = "confirmar" title = "Confirmar">
+					<p:panel header = "Resumen">						
+					<h:panelGrid columns = "3" columnClasses="grid,grid,grid">
+						<h:panelGrid columns = "2">
+							<h:outputText value="Id: " />
+							<h:outputText value="#{gusrBean.ident}" />
+							
+							<h:outputText value="Contraseña: " />
+							<h:outputText value="#{gusrBean.mpass}"/>
+						</h:panelGrid>	
+						
+						<h:panelGrid columns = "2">
+							<h:outputText value = "Nombres: "/>
+							<h:outputText value="#{gusrBean.nombres}" />
+							
+							<h:outputText value="Apellidos: " />
+							<h:outputText value="#{gusrBean.apellidos}" />
+						</h:panelGrid>
+						
+						<h:panelGrid columns = "2">
+							<h:outputText value="DNI: " />
+							<h:outputText value = "#{gusrBean.dni}"/>
+							
+							<h:outputText value="Correo: " />
+							<h:outputText value="#{gusrBean.correo}" />
+						</h:panelGrid>
+						
+						<p:commandButton value = "confirmar" style = "font-size:small;" 
+							actionListener= "#{gusrBean.submit}" update = ":content"/>
+					</h:panelGrid>
+					
+					
+					</p:panel>
+				</p:tab>
+			</p:wizard>
+		</h:form>
+	</ui:composition>
+</html>

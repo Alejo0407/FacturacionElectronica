@@ -1,0 +1,15 @@
+body{
+	background-image:url("img/fondo2.jpg");
+	background-repeat:no-repeat;
+	background-color:#cccccc;
+}
+
+#formulario{
+	width: 300px;
+   	height: 240;
+   	position: absolute;
+   	top: 50%;
+   	left: 50%;
+   	margin-top: -120px;
+   	margin-left: -150px;
+}

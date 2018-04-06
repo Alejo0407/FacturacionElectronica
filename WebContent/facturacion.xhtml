@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition template="/WEB-INF/facelets/templates/facturacionTemplate.xhtml">
+		
+		<!-- 
+			Aqui defino la etiqueta head de mi template
+		 -->
+		<ui:define name = "title">
+			<title> Facturacion - Generador</title>
+		</ui:define>
+		
+		<!-- 
+			Aqui defino la cabecera de mi pagina Web
+		 -->
+		 
+		 <ui:define name = "header">
+		 	<h:form>
+		 		<h3 style = "float:left;">AVALON-GENERADOR DE FACTURACI&Oacute;N ELECTR&Oacute;NICA-Ver 1.0 EST</h3>
+		 		<p:commandButton value="Salir" action= "#{facturacionBean.salir()}" icon="ui-icon-extlink" 
+		 			style = "font-size:small; position:absolute;bottom:10px;right:5px;background-color:auto;"/>
+		 	</h:form>
+		 </ui:define>
+		 
+		 <ui:define name="leftmenu"><h:form>
+		 		<p:megaMenu orientation = "vertical" style = "position:absolute;top:5;left:5;font-size:small;width:100px;">
+		 			
+		 			<p:menuitem value = "Inicio" actionListener = "#{facturacionBean.cambiar('default')}" update = ":content"/>
+		 			
+		 			<p:submenu label = "Procesos" rendered = "#{logginBean.rango == 1 
+		 				|| logginBean.rango == 0 }">
+			 			<p:column>
+			 				<p:submenu label = "Lotes">
+			 					<p:menuitem value = "Generador en Lotes" 
+			 					actionListener = "#{facturacionBean.cambiar('procesos/lotes')}" update = ":content"/>
+			 				</p:submenu>
+			 				
+			 				<p:submenu label = "Diarios">
+			 					<p:menuitem value = "Resumen diario de Boletas, Notas de Crédito y Débito" 
+			 						actionListener = "#{facturacionBean.cambiar('procesos/resumen_diario')}"
+			 						update = ":content"/>
+			 					<p:menuitem value = "Estado de Resumen Diario y/o Bajas"
+			 						actionListener = "#{facturacionBean.cambiar('procesos/resumen_status')}" 
+			 						update = ":content"/>
+			 					<p:menuitem value = "Estado de Resumen Diario y/o Bajas(Ticket)"
+			 						actionListener = "#{facturacionBean.cambiar('procesos/status_ticket')}" 
+			 						update = ":content"/>
+			 				</p:submenu>
+			 				
+			 				<p:submenu label = "Gestion de Usuarios" rendered = "#{logginBean.rango == 0}">
+			 					<p:menuitem value = "Crear un Usuario" update = ":content" 
+			 						actionListener ="#{facturacionBean.cambiar('usuarios/usr_generar')}"/>
+			 					<p:menuitem value = "Modificar un Usuario" update = ":content"
+			 						actionListener = "#{facturacionBean.cambiar('usuarios/usr_modificar')}"/>
+			 					<p:menuitem value = "Eliminar un Usuario" update = ":content"
+			 						actionListener = "#{facturacionBean.cambiar('usuarios/usr_eliminar')}"/>
+			 				</p:submenu>
+			 				
+			 				<p:submenu label = "Bajas">
+			 					<p:menuitem value = "Dar de Baja y/o anular documento" update =":content"
+			 						actionListener = "#{facturacionBean.cambiar('anular/anular_documento')}"/>
+			 					<p:menuitem value = "Dar de Baja un documento (ERROR SISTEMA)" update =":content"
+			 						actionListener = "#{facturacionBean.cambiar('anular/anular_error')}"
+			 						rendered = "#{logginBean.rango == 0}"/>
+			 				</p:submenu>			 				
+			 			</p:column>
+		 			</p:submenu>
+		 			
+		 			<p:submenu label = "Monitoreo">
+		 				<p:column>
+							<p:submenu label = "Monitoreo en Linea">	
+		 						<p:menuitem value = "Monitoreo de Documentos" 
+		 						actionListener = "#{facturacionBean.cambiar('monitoreo/monitoreo')}" 
+		 						update = ":content"/>
+							</p:submenu>		 				
+		 				</p:column>
+		 			</p:submenu>
+					
+					<p:submenu label = "Reportes">
+						<p:column>
+							<p:submenu label = "Ventas">
+								<p:menuitem value="Resumen Ventas" 
+								actionListener="#{facturacionBean.cambiar('reportes/rpt_ventas')}" 
+								update = ":content" icon="ui-icon-close"/>
+							</p:submenu>
+						</p:column>
+					</p:submenu>	
+					<p:submenu label = "Config" rendered = "#{logginBean.rango == 0}">
+						<p:column>
+							<p:submenu label = "Empresa" >
+			 					<p:menuitem value = "Datos de empresa" update = ":content" 
+			 						actionListener ="#{facturacionBean.cambiar('config/conf_empresa')}"/>
+			 				</p:submenu>
+			 				<p:submenu label = "Sistema">
+			 					<p:menuitem value = "Variables de Sistema" update = ":content"
+			 						actionListener  = "#{facturacionBean.cambiar('config/conf_sistema')}"/>
+			 					<p:menuitem value = "Correlativos del Sistema" update = ":content"
+			 						actionListener = "#{facturacionBean.cambiar('config/conf_correlativo')}"/>
+			 				</p:submenu>
+						</p:column>
+					</p:submenu>		 		
+		 		</p:megaMenu>
+		 </h:form></ui:define>
+	
+		<!-- Aqui se define el contenido del Sistema -->		
+		<ui:define name="content">		
+			<h:form id = "content">
+					<ui:include src="/WEB-INF/facelets/includes/#{facturacionBean.cont}.xhtml" />
+			</h:form>
+		</ui:define>
+		
+		<ui:define name = "footer">
+			<div id = "footer">
+				<h:outputText value="AMD-CONSULTORES" style = "font-size:small;"/>
+			</div>
+		</ui:define>
+		
+	</ui:composition>
+</html>

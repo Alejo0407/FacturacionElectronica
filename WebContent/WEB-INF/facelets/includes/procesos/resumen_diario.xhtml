@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition >
+		<h:form id ="rd">
+				<p:wizard flowListener = "#{resumenBean.onFlowProcess}" style = "top:0px;">
+					<p:tab id = "tab1" title = "Día">
+						<p:panel>
+						<h:panelGrid columns = "3">
+							<p:outputLabel value = "Ingrese la fecha:" for = "fec"/>
+							<p:calendar id = "fec" showOn = "button" size = "8" required = "true"
+								value = "#{resumenBean.fecha}"/>
+							<p:message for = "fec"/>
+						</h:panelGrid>
+						</p:panel>
+					</p:tab>
+					<p:tab id = "tab2" title = "Datos">
+						<p:scrollPanel style = "height:300px;width:100%;">
+						<p:dataTable id = "table" var = "item" value = "#{resumenBean.lista}"
+						 style = "font-size:small;text-align:center;"
+							 resizableMode = "expand">
+							 
+							 <p:column headerText = "Serie-Numero" width = "12%">
+								<h:outputText value="#{item.numeracion}" />
+							 </p:column>
+							 <p:column headerText = "Serie-Numero Electronico" width = "12%">
+							 	<h:outputText value="#{item.numeracion_nueva}" />
+							 </p:column>
+							 <p:column headerText = "Documento" width = "10%">
+								<h:outputText value = "#{item.tipo_doc}"></h:outputText>
+							 </p:column>
+							 <p:column headerText = "Cliente" >
+								<h:outputText value = "#{item.cliente}" style = "text-align:left;"></h:outputText>
+							 </p:column>
+							 <p:column headerText = "Total" width = "8%">
+								<h:outputText value="#{item.total}" />
+							 </p:column>
+							 <p:column headerText = "Estado" width = "8%">
+								<h:outputText value="#{item.homologado}" />
+							 </p:column>
+							 <p:column headerText = "Archivo" width = "7%">
+								<p:commandButton value = "file " ajax = "false">
+									<p:fileDownload value="#{item.file}" ></p:fileDownload>
+								</p:commandButton>
+							</p:column>
+						</p:dataTable>
+						</p:scrollPanel>
+					</p:tab>
+					
+					<p:tab id = "tab3" title = "Confirmar">
+						<p:panel>
+						<h:panelGrid columns = "2">
+							<h:outputLabel value="Fecha de Referencia: " />
+							<h:outputLabel value="#{resumenBean.fecha_referencia}" />
+							<h:outputLabel value="Fecha de generacion: " />
+							<h:outputLabel value="#{resumenBean.fecha_generacion}" />
+							<h:outputLabel value="Cantidad de Boletas: " />
+							<h:outputLabel value="#{resumenBean.lista.size()}" />
+						</h:panelGrid>
+						</p:panel>
+					</p:tab>
+					
+					<p:tab id = "tab4" title = "Resultados">
+						<p:panel>
+						<h:panelGrid columns = "2">
+							<h:outputLabel value = "Nombre del Archivo: "/>
+							<h:outputLabel value="#{resumenBean.nom_archivo}" />
+							<h:outputLabel value="Ticket SUNAT: " />
+							<h:outputLabel value="#{resumenBean.ticket}" />
+							<h:outputLabel value="Archivo Generado: " />
+							<p:commandButton value = "#{resumenBean.file.name}" ajax = "false">
+								<p:fileDownload value="#{resumenBean.file}" ></p:fileDownload>
+							</p:commandButton>
+							<h:outputLabel value="Respuesta Sunat: " />
+							<p:commandButton value = "#{resumenBean.respuesta.name}" ajax = "false">
+								<p:fileDownload value="#{resumenBean.respuesta}" ></p:fileDownload>
+							</p:commandButton>
+						</h:panelGrid>
+						</p:panel>
+					</p:tab>
+					
+				</p:wizard>
+				
+		</h:form>
+	</ui:composition>
+</html>

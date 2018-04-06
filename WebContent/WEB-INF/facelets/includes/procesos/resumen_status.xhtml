@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition >
+		<h:form id = "res_status">
+			<p:wizard flowListener = "#{statusBean.onFlowProcess}" id = "wiz">
+				<p:tab id = "tab1" title = "Fecha del Resumen">
+					<p:panel>
+					<h:panelGrid columns = "3">
+						<p:outputLabel value = "Ingrese la fecha:" for = "fec"/>
+						<p:calendar id = "fec" showOn = "button" size = "8" required = "true"
+							value = "#{statusBean.fecha}"/>
+						<p:message for = "fec"/>
+						
+						<p:outputLabel value = "Tipo de Resumen" for = "tipore"/>
+						<p:selectOneMenu id = "tipore" value ="#{statusBean.tipo}" required ="true">
+							<f:selectItem itemLabel = "R. Boletas" itemValue = "RC"/>
+							<f:selectItem itemLabel = "R. Bajas" itemValue = "RA" />
+							<f:selectItem itemLabel = "Ambos" itemValue ="-"/>
+						</p:selectOneMenu>
+						<p:message for = "tipore" />
+						
+						<p:outputLabel value = "Tipo de Fecha" for = "tipofec"/>
+						<p:selectOneMenu id = "tipofec" value ="#{statusBean.referencia}" required ="true">
+							<f:selectItem itemLabel = "Referencia" itemValue = "true"/>
+							<f:selectItem itemLabel = "Generacion" itemValue = "false"/>
+						</p:selectOneMenu>
+						<p:message for = "tipofec" />
+					
+					</h:panelGrid>
+					</p:panel>
+				</p:tab>
+				<p:tab id = "tab2" title = "Resumenes Almacenados" >
+					<p:scrollPanel style = "height:300px;width:100%;">
+						<p:dataTable id = "table" var = "item" value = "#{statusBean.lista}"
+						 style = "font-size:small;text-align:center;"
+							 resizableMode = "expand">
+							 <p:column headerText = "Fecha-Referencia" width = "20%">
+								<h:outputText value= "#{item.referencia}"/>
+							 </p:column>
+							 <p:column headerText = "Fecha-Generacion" width = "20%">
+							 	<h:outputText value="#{item.fecha}" />
+							 </p:column>
+							<p:column headerText = "Tipo Resumen">
+								<h:outputText value="#{item.tipo}" />
+							</p:column>
+							 <p:column headerText = "Ticket" width = "25%">
+								<p:commandButton value = "#{item.ticket}" 
+								 actionListener = "#{statusBean.accion(item.ticket,item.correlativo,
+								 item.fecha,item.tipo_o)}"/>
+							</p:column>
+							
+						</p:dataTable>
+					</p:scrollPanel>
+					
+				</p:tab>
+				<p:tab id = "tab3" title = "Estatus del Envío">
+					<p:panel>
+					<h:panelGrid columns = "2">
+						<h:outputLabel value="Estado del Documento: " />
+						<h:outputLabel value= "#{statusBean.status}" />
+						<h:outputLabel value="Respuesta SUNAT: " />
+						<p:commandButton value = "#{statusBean.file.name}" ajax = "false">
+							<p:fileDownload value="#{statusBean.file}" ></p:fileDownload>
+						</p:commandButton>
+					</h:panelGrid>
+					</p:panel>
+				</p:tab>
+				<p:tab id = "tab4" title = "Respuesta Sunat" rendered = "">
+				</p:tab>
+			</p:wizard>
+		</h:form>
+	</ui:composition>
+</html>

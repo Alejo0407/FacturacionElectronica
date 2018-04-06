@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+	
+	<ui:composition >
+		<h:form>
+			<p:panel style = "position:absolute;width:98%;height:400px;">
+				<h:panelGrid columns = "1">
+				<h:panelGrid columns = "2">
+					<h:outputLabel value="Producción Sunat: " />
+					<p:selectOneMenu value = "#{systemBean.sistema.urlProduccion}">
+						<f:selectItem itemLabel = "Produccion" 
+							itemValue = "#{systemBean.produccion_factura}"/>
+						<f:selectItem itemLabel = "Beta" 
+							itemValue  = "#{systemBean.beta_factura}"/>
+					</p:selectOneMenu>
+					<h:outputLabel value="Validez de CE: " />
+					<p:selectOneMenu value = "#{systemBean.sistema.urlValidarCE}">
+						<f:selectItem itemLabel = "Produccion" 
+							itemValue  = "#{systemBean.ce}"/>
+					</p:selectOneMenu>
+					<h:outputLabel value="Envío de guías de Remisión: " />
+					<p:selectOneMenu value = "#{systemBean.sistema.urlRemision}">
+						<f:selectItem itemLabel = "Produccion" 
+							vitemValue  = "#{systemBean.produccion_remision}"/>
+						<f:selectItem itemLabel = "Beta" 
+							itemValue  = "#{systemBean.beta_remision}"/>
+					</p:selectOneMenu>
+					<h:outputLabel value="Consulta de CDR y estado de envío: " />
+					<p:selectOneMenu value = "#{systemBean.sistema.urlConsultaCDR}">
+						<f:selectItem itemLabel = "Produccion" 
+							itemValue  = "#{systemBean.cdr}"/>
+					</p:selectOneMenu>
+					<h:outputLabel value="Envio Retención y Percepción: " />
+					<p:selectOneMenu value = "#{systemBean.sistema.urlRetencion}">
+						<f:selectItem itemLabel = "Produccion" 
+							itemValue = "#{systemBean.produccion_retencion}"/>
+						<f:selectItem itemLabel = "Beta" 
+							itemValue = "#{systemBean.beta_retencion}"/>
+					</p:selectOneMenu>
+					<h:outputLabel value="Dirección base del sistema: " />
+					<p:inputText value = "#{systemBean.sistema.urlServidor}"/>
+					<h:outputLabel value="Verificación de Boletas (Usa el serv. beta): " />
+					<p:selectOneMenu value = "#{systemBean.sistema.validarBoletas}">
+						<f:selectItem itemLabel = "Si" itemValue = "1"/>
+						<f:selectItem itemLabel = "No" itemValue = "0"/>
+					</p:selectOneMenu>
+				</h:panelGrid>
+				<p:separator/>
+				<h:panelGrid columns = "2">
+					<h:outputText value="" />
+					<p:commandButton value = "Confirmar" actionListener = "#{systemBean.submit}"/>
+				</h:panelGrid>
+				
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
+	</ui:composition>
+</html>

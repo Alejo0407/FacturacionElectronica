@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition>
+		<h:form>
+			<p:wizard flowListener = "#{beanEmpresa.onFlowProcess}" id = "flow">
+				<p:tab id = "tab1" title = "Informacion Importante">
+					<h:panelGrid columns = "3">			
+						<h:outputLabel value="RUC: *" />
+						<p:inputText id = "ruc" required = "true" value = "#{beanEmpresa.ruc}"/>
+						<p:message for = "ruc"/>
+						<h:outputLabel value="Nombre: *" />
+						<p:inputText id = "nombre" required = "true" value = "#{beanEmpresa.nombre}"/>
+						<p:message for = "nombre"/>
+						
+						<p/><p/><p/>
+						<h:outputText value="Saltar al final:" />
+						<h:selectBooleanCheckbox value="#{beanEmpresa.skip}" />
+					</h:panelGrid>
+				</p:tab>
+				
+				<p:tab id = "tab2" title = "Informacion Adicional">
+					<h:panelGrid columns = "2">
+						<h:outputLabel value="Nombre Comercial: " /><p:inputText value = "#{beanEmpresa.nombreComercial}"/>
+						<h:outputLabel value="Ubigeo: " /><p:inputText value = "#{beanEmpresa.ubigeo}"/>
+						<h:outputText value = "Urbanizacion"/><p:inputText value = "#{beanEmpresa.urbanizacion}"/>
+						<h:outputText value = "Provincia"/><p:inputText value = "#{beanEmpresa.provincia}"/>
+						<h:outputText value = "Departamento"/><p:inputText value = "#{beanEmpresa.departamento}"/>
+						<h:outputText value = "Distrito"/><p:inputText value = "#{beanEmpresa.distrito}"/>
+						<h:outputText value = "Direccion" /><p:inputText value = "#{beanEmpresa.direccion}"/>
+						<h:outputText value = "Teléfono"/><p:inputText value = "#{beanEmpresa.telefono}"/>
+						<h:outputText value = "Fax"/><p:inputText value = "#{beanEmpresa.fax}"/>
+						<h:outputText value = "e-mail empresarial: "/><p:inputText value = "#{beanEmpresa.email}"/>
+						<h:outputText value = "Página Web: "/><p:inputText value = "#{beanEmpresa.web}"/>
+						
+						<h:outputText value="Saltar al final:" />
+						<h:selectBooleanCheckbox value="#{beanEmpresa.skip}" />
+					</h:panelGrid>
+				</p:tab>
+				
+				<p:tab id = "tab3" title = "CertificadoDigital">
+					<h:panelGrid columns = "3" >
+						<h:outputText value="Certificado Digital: *" />
+						<p:fileUpload id = "fu"  skinSimple = "true" required = "true" value = "#{beanEmpresa.ce}" fileUploadListener = "#{beanEmpresa.upload}"/>
+						<p:message for = "fu"/>
+						<h:outputText value="PIN del certificado: *" />
+						<p:inputText id = "ps" required = "true" value = "#{beanEmpresa.pin}"/>
+						<p:message for = "ps"/>
+						<h:outputText value="PIN Revocar del certificado: " />
+						<p:inputText id = "ps2" required = "true"  value = "#{beanEmpresa.pinRevocar}"/>
+						<p:message for = "ps2"/>
+						<h:outputText value="Alias del cerificado: *" />
+						<p:inputText id = "it1" required = "true" value = "#{beanEmpresa.alias}"/>
+						<p:message for = "it1"/>
+						<h:outputText value="Usuario Secundario: *" />
+						<p:inputText id = "it2" required = "true" value = "#{beanEmpresa.usr_secundario}"/>
+						<p:message for = "it2"/>
+						<h:outputText value="Contraseña: *" />
+						<p:inputText id = "ps3" required = "true" value = "#{beanEmpresa.usr_pass}"/>
+						<p:message for = "ps3"/>
+					</h:panelGrid>
+				</p:tab>
+				
+				<p:tab id = "tab4" title = "Resumen">
+					<h:panelGrid columns = "3">
+						<h:panelGrid columns = "2">			
+							<h:outputLabel value="RUC:  " />
+							<h:outputLabel value = "#{beanEmpresa.ruc}"/>
+							<h:outputLabel value="Nombre: " />
+							<h:outputLabel value = "#{beanEmpresa.nombre}"/>
+						</h:panelGrid>
+						
+						<h:panelGrid columns = "2">
+							<h:outputLabel value="Nombre Comercial: " /><h:outputLabel value = "#{beanEmpresa.nombreComercial}"/>
+							<h:outputLabel value="Ubigeo: " /><h:outputLabel value = "#{beanEmpresa.ubigeo}"/>
+							<h:outputText value = "Urbanizacion"/><h:outputLabel value = "#{beanEmpresa.urbanizacion}"/>
+							<h:outputText value = "Provincia"/><h:outputLabel value = "#{beanEmpresa.provincia}"/>
+							<h:outputText value = "Departamento"/><h:outputLabel value = "#{beanEmpresa.departamento}"/>
+							<h:outputText value = "Distrito"/><h:outputLabel value = "#{beanEmpresa.distrito}"/>
+							<h:outputText value = "Teléfono"/><h:outputLabel value = "#{beanEmpresa.telefono}"/>
+							<h:outputText value = "Fax"/><h:outputLabel value = "#{beanEmpresa.fax}"/>
+							<h:outputText value = "e-mail empresarial: "/><h:outputLabel value = "#{beanEmpresa.email}"/>
+							<h:outputText value = "Página Web: "/><h:outputLabel value = "#{beanEmpresa.web}"/>
+						</h:panelGrid>
+						
+						<h:panelGrid columns = "2" >
+							<h:outputText value="Certificado Digital: " />
+							<h:outputText  value = "#{beanEmpresa.nce}"/>
+							<h:outputText value="PIN del certificado: " />
+							<h:outputText  value = "#{beanEmpresa.pin}"/>
+							<h:outputText value="PIN Revocar del certificado: " />
+							<h:outputText value = "#{beanEmpresa.pinRevocar}"/>
+							<h:outputText value="Alias del cerificado: " />
+							<h:outputText value = "#{beanEmpresa.alias}"/>
+							<h:outputText value="Usuario Secundario: " />
+							<h:outputText value = "#{beanEmpresa.usr_secundario}"/>
+							<h:outputText value="Contraseña: " />
+							<h:outputText value = "#{beanEmpresa.usr_pass}"/>
+						</h:panelGrid>
+					
+					<p:commandButton value = "Guardar" actionListener = "#{beanEmpresa.submit}" 
+					update = ":content"/>	
+					</h:panelGrid >
+				</p:tab>
+			
+			</p:wizard>
+		</h:form>
+	</ui:composition>
+</html>

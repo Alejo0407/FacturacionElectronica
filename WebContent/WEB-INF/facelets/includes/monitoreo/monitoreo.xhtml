@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition >
+		
+		<h:form>
+			<p:layout style = "position:absolute;width:100%;height:100%;left:0;">
+				<p:layoutUnit position="north" style = "text-align:center;">
+					
+					<h:outputLabel value="Fecha Actual: " for ="fecha"/>
+					<p:calendar id = "fecha" value = "#{monitorBean.fecha}" size = "8"/>
+					<p:commandButton actionListener = "#{monitorBean.obtenerLista}" value = "refrescar" update  = "table" style = "right:0;font-size:small;"/>
+				
+				</p:layoutUnit>
+				
+				<p:layoutUnit position="center">
+					
+					<p:dataTable  id = "table" var = "item" value = "#{monitorBean.list}"  
+					style = "font-size:small;text-align:center;" resizable = "true">
+						<p:column headerText = "Numeracion Electronica"><h:outputLabel value = "#{item.numeracion_nueva}"/></p:column>
+						<p:column headerText = "Cliente" ><h:outputLabel value = "#{item.cliente}"/></p:column>
+						<p:column headerText = "Monto"><h:outputLabel value = "#{item.total}"/></p:column>
+						<p:column headerText = "Referencia"><h:outputLabel value = "#{item.numeracion}"/></p:column>
+						<p:column headerText = "Fecha"><h:outputLabel value = "#{item.fecha}"/></p:column>
+						<p:column headerText = "Estado"><h:outputLabel value="#{item.homologado}" /></p:column>
+						<p:column headerText = "Archivo">
+							<p:commandButton value = "file" ajax = "false">
+							<p:fileDownload value="#{item.file}" ></p:fileDownload>
+						</p:commandButton>
+						</p:column>
+						<p:column headerText = "SUNAT">
+							<p:commandButton value = "file" ajax = "false">
+							<p:fileDownload value="#{item.sunat}" ></p:fileDownload>
+						</p:commandButton>
+						</p:column>
+						<p:column headerText = "Representacion" >
+							<h:commandButton actionListener="#{item.redir()}" value="link" />
+						</p:column>
+					</p:dataTable>
+					
+				</p:layoutUnit>
+			</p:layout>
+		</h:form>
+	</ui:composition>
+</html>

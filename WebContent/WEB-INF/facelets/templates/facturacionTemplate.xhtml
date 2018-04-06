@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+      
+      <h:head>
+      	<link rel = "stylesheet" type = "text/css" href = "css/facturacion.css"></link>
+      	<ui:insert name = "title"> <title> Loggin </title></ui:insert>
+      </h:head>
+      
+      <h:body>
+      	<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+ 
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+		    <p:graphicImage name="/css/img/bar.gif" />
+		</p:dialog>
+		
+      	<div id = "header">
+      		<ui:insert name = "header">
+      			<h1> Header </h1>
+      		</ui:insert>
+      	</div>
+      	
+      	<div id = "menu">
+
+      		<ui:insert name = "leftmenu">
+      			<p> Here goes a menu</p>
+      		</ui:insert>
+      	</div>
+      
+      	<div id = "content">
+      		<ui:insert name = "content">
+      			<p> Here goes the Main content of the page...</p>
+      		</ui:insert>
+      	</div>
+      	
+      	<div id = "footer">
+      		<ui:insert name = "footer">
+      			<p> ....</p>
+      		</ui:insert>
+      	</div>
+      	
+      	
+      </h:body>
+      
+</html>

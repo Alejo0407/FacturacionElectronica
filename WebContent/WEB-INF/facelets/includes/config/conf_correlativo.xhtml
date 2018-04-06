@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition >
+		<h:form>
+			<p:panel style = "position:absolute;width:350px;height:400px;">
+				<h:panelGrid columns = "1">
+				<h:outputLabel value="FACTURAS" />
+				<h:panelGrid columns = "2">
+					<h:outputLabel value="Serie: " />
+					<p:inputText id = "sf" value = "#{correlacionBean.c_factura.serie}">
+						<p:ajax event = "keyup" update = "sf" 
+							listener = "#{correlacionBean.handleKeyEvent(sf)}"/>
+					</p:inputText>
+					<h:outputLabel value="Correlativo: " />
+					<p:inputText id = "cf" value = "#{correlacionBean.c_factura.correlativo}">
+						<p:ajax event = "keyup" update = "cf" 
+								listener = "#{correlacionBean.handleKeyEvent(cf)}"/>
+					</p:inputText>
+				</h:panelGrid>
+				<p:separator/>
+				<h:outputLabel value="BOLETAS" />
+				<h:panelGrid columns = "2">
+					<h:outputLabel value="Serie: " />
+					<p:inputText id = "sb" value = "#{correlacionBean.c_boleta.serie}">
+						<p:ajax event = "keyup" update = "sb" 
+							listener = "#{correlacionBean.handleKeyEvent(sb)}"/>
+					</p:inputText>
+					<h:outputLabel value="Correlativo: " />
+					<p:inputText id = "cb" value = "#{correlacionBean.c_boleta.correlativo}">
+						<p:ajax event = "keyup" update = "cb" 
+							listener = "#{correlacionBean.handleKeyEvent(cb)}"/>
+					</p:inputText>
+				</h:panelGrid>
+				<p:separator/>
+				<h:panelGrid columns = "2">
+					<h:outputText value="" />
+					<p:commandButton value = "Confirmar" 
+						actionListener = "#{correlacionBean.submit}"/>
+				</h:panelGrid>
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
+	</ui:composition>
+</html>

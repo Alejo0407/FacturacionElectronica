@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition>
+		<h:form>
+			<p:wizard flowListener = "#{anularDocBean.onFlowProcess1}" id = "a_form">
+			<p:tab id = "tab1" >
+				<p:panel header = "Documento">
+				<h:panelGrid columns = "3">
+					<h:outputLabel value="SERIE: *" />
+					<p:inputText id = "selec" value = "#{anularDocBean.doc.serieelec}" required = "true"/>
+					<p:message for = "selec" />
+					<h:outputLabel value="NUMERO: *" />
+					<p:inputText id = "nelec" value = "#{anularDocBean.doc.numeroelec}" required = "true"/>
+					<p:message for = "nelec"/>
+					<h:outputLabel value="Enviado: "/>
+					<p:selectOneMenu value = "#{anularDocBean.enviado}">
+						<f:selectItem itemLabel = "ENVIADO" itemValue = "true"/>
+						<f:selectItem itemLabel = "SIN ENVIAR" itemValue = "false"/>
+					</p:selectOneMenu>
+				</h:panelGrid>
+				</p:panel>
+			</p:tab>
+			<p:tab id = "tab2">
+				<p:panel header = "Informacion">
+				<h:panelGrid columns = "1">
+				<h:panelGrid columns = "2">
+					<h:outputLabel value="SERIE: " />
+					<h:outputLabel value="#{anularDocBean.doc.serieelec}" />
+					<h:outputLabel value="NUMERO: " />
+					<h:outputLabel value="#{anularDocBean.doc.numeroelec}" />
+					<h:outputLabel value="TOTAL: " />
+					<h:outputLabel value="#{anularDocBean.doc.totaldoc}" />
+					<h:outputLabel value="CLIENTE: " />
+					<h:outputLabel value="#{anularDocBean.doc.nomcliente}" />
+					<h:outputLabel value="ESTADO-ANULADO: " />
+					<h:outputLabel value="#{anularDocBean.doc.anulado}" />
+					<h:outputLabel value="ESTADO-RESUMEN: " />
+					<h:outputLabel value="#{anularDocBean.doc.resumen}" />
+				</h:panelGrid>
+				<p:separator/>
+				<h:panelGrid columns = "2" rendered = "#{anularDocBean.enviado == true}">
+					<h:outputLabel value = "RAZON: "/>
+					<p:inputText value = "#{anularDocBean.razon}"/>
+				</h:panelGrid>
+				</h:panelGrid>
+				</p:panel>
+			</p:tab>
+			<p:tab id = "tab3">
+				<p:panel header = "Resultados">
+				<h:panelGrid columns = "2">	
+					<h:outputLabel value="Ticket SUNAT: " />
+					<h:outputLabel value="#{anularDocBean.ticket}" />
+					<h:outputLabel value="Archivo Generado: " />
+					<p:commandButton value = "#{anularDocBean.file.name}" ajax = "false">
+						<p:fileDownload value="#{anularDocBean.file}" ></p:fileDownload>
+					</p:commandButton>
+					<h:outputLabel value="Respuesta Sunat: " />
+					<p:commandButton value = "#{anularDocBean.respuesta.name}" ajax = "false">
+						<p:fileDownload value="#{anularDocBean.respuesta}" ></p:fileDownload>
+					</p:commandButton>
+				</h:panelGrid>
+				</p:panel>
+			</p:tab>
+			</p:wizard>
+		</h:form>
+	</ui:composition>
+</html>

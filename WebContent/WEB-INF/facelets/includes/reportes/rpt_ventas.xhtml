@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition >
+		<h:form>
+			<p:panel header = "Parametros">
+				<h:panelGrid columns = "1">
+				<h:panelGrid columns = "3">
+					<h:outputLabel value="Fecha Inicio: *" for ="fi" />
+					<p:calendar id = "fi" required = "true" value = "#{rventasBean.fechaInicio}"/>
+					<p:message for  = "fi"/>
+						
+					<h:outputLabel value="Fecha Fin: *" for ="ff" />
+					<p:calendar id = "ff" required = "true" value ="#{rventasBean.fechaFin}"/>
+					<p:message for = "ff"/>
+					
+					<h:outputLabel value="Tipo: " for = "tipo"/>
+					<p:selectOneMenu value = "#{rventasBean.tipo}">
+						<f:selectItem itemLabel = "Todo" itemValue = "-1"/>
+						<f:selectItem itemLabel = "Factura" itemValue = "1"/>
+						<f:selectItem itemLabel = "Boleta" itemValue = "3"/>
+					</p:selectOneMenu>
+				</h:panelGrid>
+				<p:separator/>
+				<h:panelGrid columns = "2" cellpadding = "6">
+				<h:commandButton value = "Generar" style = "font-size:small" update = "btn"
+					actionListener = "#{rventasBean.generar()}"/>
+				</h:panelGrid>
+				</h:panelGrid>
+				
+			</p:panel>	
+		</h:form>
+	</ui:composition>
+</html>
