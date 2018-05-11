@@ -66,6 +66,11 @@
 			 					<p:menuitem value = "Dar de Baja un documento (ERROR SISTEMA)" update =":content"
 			 						actionListener = "#{facturacionBean.cambiar('anular/anular_error')}"
 			 						rendered = "#{logginBean.rango == 0}"/>
+			 				</p:submenu>
+			 				
+			 				<p:submenu label = "Emergencia">
+			 					<p:menuitem value = "Reenvio de documentos" 
+			 					actionListener="#{facturacionBean.cambiar('procesos/reenviar')}" update =":content"/>
 			 				</p:submenu>			 				
 			 			</p:column>
 		 			</p:submenu>

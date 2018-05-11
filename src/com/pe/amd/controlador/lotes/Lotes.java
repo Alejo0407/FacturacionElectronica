@@ -58,7 +58,9 @@ public class Lotes implements Serializable {
 					list.add(t);
 				}
 				if(this.isBoletas()) {
-					List<Cabdocumentos> datos = p.generarBoletas(fecha);
+					Object temporal = p.generarBoletas(fecha)[0];
+					@SuppressWarnings("unchecked")
+					List<Cabdocumentos> datos = (List<Cabdocumentos>) temporal;
 					for(Cabdocumentos boleta:datos) {
 						Tabla t = new Tabla();
 						t.setCliente(boleta.getNomcliente());
@@ -84,7 +86,9 @@ public class Lotes implements Serializable {
 					}
 				}
 				if(this.isFacturas()) {
-					List<Cabdocumentos> datos = p.generarFacturas(fecha);
+					Object temporal = p.generarFacturas(fecha)[0];
+					@SuppressWarnings("unchecked")
+					List<Cabdocumentos> datos = (List<Cabdocumentos>) temporal;
 					for(Cabdocumentos factura:datos) {
 						Tabla t = new Tabla();
 						t.setCliente(factura.getNomcliente());

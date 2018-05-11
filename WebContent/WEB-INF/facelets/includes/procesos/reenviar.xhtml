@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition>
+		
+		<h:form id = "reenvio_form">
+			<p:wizard id = "wiz" flowListener="#{reenvioBean.onFlowListener}" >
+				<p:tab id = "tab1" title = "Datos">
+				<h:panelGrid columns = "2">
+					<h:outputLabel value="Fecha Inicio: " />
+					<p:calendar value= "#{reenvioBean.fechaInicio}" required="true"/>
+					<h:outputLabel value="Fecha Fin: " />
+					<p:calendar value= "#{reenvioBean.fechaFin}" required="true"/>
+				</h:panelGrid>
+				</p:tab>
+				
+				<p:tab id = "tab2" title = "Datos">
+					<p:scrollPanel >
+						<p:dataTable id = "table" var="doc" value="#{reenvioBean.documentos}"  
+						style = "font-size:small;text-align:center;" resizeMode="expand">
+							<p:column headerText="Numeracion Electrónica">
+								<h:outputText value="#{doc.serieelec}-#{doc.numeroelec}" />
+							</p:column>
+							<p:column headerText="Monto">
+								<h:outputText value="#{doc.totaldoc}" />
+							</p:column>
+							
+							<p:column headerText="Seleccionar">
+								<p:commandButton value="seleccionar" 
+									actionListener="#{reenvioBean.seleccionar(doc)}"/>
+							</p:column>
+						</p:dataTable>
+					</p:scrollPanel>
+				</p:tab>
+				
+				<p:tab id = "tab3" title = "Información">
+				<h:panelGrid columns = "2">
+						<h:outputLabel value="Numeracion Electrónica: " />
+						<h:outputLabel value= "#{reenvioBean.seleccionado.serieelec}-#{reenvioBean.seleccionado.numeroelec}" />
+						<h:outputLabel value="Monto: " />
+						<h:outputLabel value="#{reenvioBean.seleccionado.totaldoc}" />
+						<h:outputLabel value="Numeracion Original: " />
+						<h:outputLabel value="#{reenvioBean.seleccionado.serie}-#{reenvioBean.seleccionado.numero}" />
+						<h:outputLabel value="XML: " />
+						<p:commandButton value = "#{reenvioBean.xml.name}" ajax = "false">
+							<p:fileDownload value="#{reenvioBean.xml}" ></p:fileDownload>
+						</p:commandButton>
+				</h:panelGrid>	
+				</p:tab>
+				
+				<p:tab id = "tab4" title = "Resultados">
+				<h:panelGrid columns = "2">
+						<h:outputLabel value="Estado del Documento: " />
+						<h:outputLabel value= "#{reenvioBean.status}" />
+						
+						<h:outputLabel value="Mensaje Sunat: " />
+						<h:outputLabel value= "#{reenvioBean.mensaje}" />
+						
+						<h:outputLabel value="Respuesta SUNAT: " />
+						<p:commandButton value = "#{reenvioBean.response.name}" ajax = "false">
+							<p:fileDownload value="#{reenvioBean.response}" ></p:fileDownload>
+						</p:commandButton>
+				</h:panelGrid>
+				</p:tab>
+			
+			</p:wizard>
+		</h:form>
+	</ui:composition>
+</html>
